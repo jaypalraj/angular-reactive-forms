@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Customer form</h2>
+    <hr>
+
+    <form #form="ngForm" (ngSubmit)="onSubmitCustomer(form)">
+        <div class="form-group">
+            <label>First Name</label>
+            <input id="txtFirstname" name="firstName" class="form-control" [(ngModel)]="customer.firstName" required/>
+        </div>
+        <div class="form-group">
+            <label>Surname</label>
+            <input id="txtSurname" name="surname" class="form-control" [(ngModel)]="customer.surname" required/>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input id="txtEmail" name="email" class="form-control" 
+            [(ngModel)]="customer.email" 
+            required 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"/>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+<pre>
+    {{customer | json}}
+</pre>

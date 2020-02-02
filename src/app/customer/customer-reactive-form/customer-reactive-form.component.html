@@ -1,0 +1,63 @@
+<div class="container">
+
+    <h2>Customer reactive form</h2>
+    <hr>
+
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmitCustomer()">
+        <div class="form-group">
+            <label>First Name</label>
+            <input id="txtFirstName" type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid': (customerForm.get('firstName').touched ||
+                customerForm.get('firstName').dirty) &&
+                !customerForm.get('firstName').valid }" />
+        </div>
+
+        <div class="form-group">
+            <label>Surname</label>
+            <input id="txtSurname" type="text" class="form-control" formControlName="surname" [ngClass]="{'is-invalid': (customerForm.get('surname').touched ||
+                customerForm.get('surname').dirty) &&
+                !customerForm.get('surname').valid }" />
+        </div>
+
+
+        <div formGroupName="emailGroup">
+            <div class="form-group">
+                <label>Email</label>
+                <input id="txtEmail" type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid': (customerForm.get('emailGroup.email').touched ||
+                customerForm.get('emailGroup.email').dirty) &&
+                !customerForm.get('emailGroup.email').valid }" />
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Email</label>
+                <input id="txtConfirmEmail" type="text" class="form-control" formControlName="confirmEmail" 
+                [ngClass]="{'is-invalid': customerForm.get('emailGroup').errors ||
+                ((customerForm.get('emailGroup.confirmEmail').touched || 
+                 customerForm.get('emailGroup.confirmEmail').dirty) && 
+                 !customerForm.get('emailGroup.confirmEmail').valid) }" />
+            </div>
+        </div>
+
+        <div formArrayName="socialMedias">
+
+            <div [formGroupName]="i" *ngFor="let socialMedia of socialMedias.controls; let i = index">
+                <div class="form-group">
+                    <label>Social Media</label>
+                    <input id="txtSocialMedia_{{i}}" type="text" formControlName="socialMediaTitle" 
+                    class="form-control" [ngClass]="{'is-invalid': (socialMedia.controls.socialMediaTitle.touched
+                                                                    || socialMedia.controls.socialMediaTitle.dirty)
+                                                                    && !socialMedia.controls.socialMediaTitle.valid}" />
+                    
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <button type="button" class="btn btn-success" 
+                [disabled]="!socialMedias.valid"
+                (click)="addSocialMedia()">Add social media</button>
+
+        <hr>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+</div>
